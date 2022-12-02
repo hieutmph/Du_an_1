@@ -4,19 +4,31 @@
  */
 package View;
 
+import Reponse.NhanVienRP;
+
+
+
+import entity.NhanVien;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author pc acer
  */
 public class NhanVienForm extends javax.swing.JPanel {
-
+ DefaultTableModel tblModel;
     /**
      * Creates new form NhanVienForm
      */
     public NhanVienForm() {
         initComponents();
+        initTB();
+        loadTB();
     }
-
+    int index =0;
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,21 +51,21 @@ public class NhanVienForm extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         txt_maNV = new javax.swing.JTextField();
         txt_tenNV = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        txtNgaySinh = new javax.swing.JTextField();
+        txtDiachi = new javax.swing.JTextField();
+        btnSua = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
+        btnThem = new javax.swing.JButton();
+        txtEmail = new javax.swing.JTextField();
+        txtDienthoai = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cboGt = new javax.swing.JComboBox<>();
+        cboCV = new javax.swing.JComboBox<>();
         jButton6 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbl_NhaCungCap = new javax.swing.JTable();
+        tbl_NV = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(0, 1));
@@ -122,24 +134,24 @@ public class NhanVienForm extends javax.swing.JPanel {
         jPanel2.add(txt_maNV, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 130, 20));
         jPanel2.add(txt_tenNV, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 130, 20));
 
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        txtNgaySinh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                txtNgaySinhActionPerformed(evt);
             }
         });
-        jPanel2.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 130, 20));
-        jPanel2.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 270, 130, 20));
+        jPanel2.add(txtNgaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 130, 20));
+        jPanel2.add(txtDiachi, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 270, 130, 20));
 
-        jButton3.setBackground(new java.awt.Color(110, 89, 222));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Sửa");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnSua.setBackground(new java.awt.Color(110, 89, 222));
+        btnSua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSua.setForeground(new java.awt.Color(255, 255, 255));
+        btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnSuaActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 390, -1, 30));
+        jPanel2.add(btnSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 390, -1, 30));
 
         jButton5.setBackground(new java.awt.Color(110, 89, 222));
         jButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -152,18 +164,18 @@ public class NhanVienForm extends javax.swing.JPanel {
         });
         jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 390, -1, 30));
 
-        jButton4.setBackground(new java.awt.Color(110, 89, 222));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Thêm");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnThem.setBackground(new java.awt.Color(110, 89, 222));
+        btnThem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnThem.setForeground(new java.awt.Color(255, 255, 255));
+        btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnThemActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, -1, 30));
-        jPanel2.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 130, 20));
-        jPanel2.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, 130, 20));
+        jPanel2.add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, -1, 30));
+        jPanel2.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 130, 20));
+        jPanel2.add(txtDienthoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, 130, 20));
 
         jLabel8.setText("Email");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, -1, -1));
@@ -174,11 +186,11 @@ public class NhanVienForm extends javax.swing.JPanel {
         jLabel10.setText("Địa Chỉ");
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ", "Khác" }));
-        jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, -1, -1));
+        cboGt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ", "Khác" }));
+        jPanel2.add(cboGt, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, -1, -1));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quản Lý", "Nhân Viên" }));
-        jPanel2.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, -1, -1));
+        cboCV.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quản Lý", "Nhân Viên" }));
+        jPanel2.add(cboCV, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, -1, -1));
 
         add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 280, 430));
 
@@ -193,7 +205,7 @@ public class NhanVienForm extends javax.swing.JPanel {
         });
         add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 110, -1, 30));
 
-        tbl_NhaCungCap.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_NV.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -204,26 +216,82 @@ public class NhanVienForm extends javax.swing.JPanel {
                 "Mã NV", "Tên NV", "Giới Tính", "Ngày Sinh", "Email", "Số Điện Thoại", "Địa Chỉ", "Chức Vụ"
             }
         ));
-        jScrollPane1.setViewportView(tbl_NhaCungCap);
+        tbl_NV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_NVMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbl_NV);
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, 680, 370));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void txtNgaySinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNgaySinhActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_txtNgaySinhActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+      if (txt_tenNV.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Nhập Tên Nhân Viên!!");
+        }
+        int chon = JOptionPane.showConfirmDialog(this, "Xác Nhận thêm?", "Thêm?",
+                JOptionPane.YES_NO_OPTION);
+        if (chon == JOptionPane.YES_OPTION) {
+            try {
+                NhanVien sv = new NhanVien();
+                sv.setMaNV(txt_maNV.getText());
+                sv.setEmail(txtEmail.getText());
+                sv.setDiaChi(txtDiachi.getText());
+                sv.setTenNV(txt_tenNV.getText());
+                sv.setDienThoai(txtDienthoai.getText());
+                sv.setGioiTinh(rbNam.isSelected() ? "Nam" : "Nữ");
+                NhanVienRP dao = new NhanVienRP();
+                if (dao.upDateNV(sv)) {
+                    JOptionPane.showMessageDialog(this, "Thành Công");
+                    loadTB();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Lỗi!!");
 
+                }
+            } catch (Exception ex) {
+
+            }
+    }//GEN-LAST:event_btnSuaActionPerformed
+    }
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+      if (txt_tenNV.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Nhập Tên Nhân Viên !!");
+        }
+        int chon = JOptionPane.showConfirmDialog(this, "Xác Nhận thêm?", "Thêm?",
+                JOptionPane.YES_NO_OPTION);
+        if (chon == JOptionPane.YES_OPTION) {
+            try {
+                NhanVien sv = new NhanVien();
+                sv.setMaNV(txt_maNV.getText());
+                sv.setTenNV(txt_tenNV.getText());
+                sv.setGioiTinh(cboGt);
+                sv.setDateNgaySinh(txtNgaySinh.getText());
+                sv.setEmail(txtEmail.getText());
+                sv.setDienThoai(txtDienthoai.getText());
+                sv.setDiaChi(txtDiachi.getText());
+          
+                NhanVienRP dao = new NhanVienRP();
+                if (dao.insertNV(sv)) {
+                    JOptionPane.showMessageDialog(this, "Thành Công");
+                    loadTB();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Lỗi!!");
+
+                }
+            } catch (Exception ex) {
+
+            }
+        }
+    }//GEN-LAST:event_btnThemActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
@@ -233,14 +301,36 @@ public class NhanVienForm extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void tbl_NVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_NVMouseClicked
+         try {
+            int row = tbl_NV.getSelectedRow();
+            if (row >= 0) {
+                String id = (String) tbl_NV.getValueAt(row, 0);
+                NhanVienRP dao = new NhanVienRP();
+                NhanVien sv = dao.searchMaNV(id);
+                if (sv != null) {
+                    txtDiachi.setText(sv.getDiaChi());
+                    txtEmail.setText(sv.getEmail());
+                    txt_maNV.setText(sv.getMaNV());
+                    txt_tenNV.setText(sv.getTenNV());
+                    txtDienthoai.setText(sv.getDienThoai());
+                    
+
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_tbl_NVMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnSua;
+    private javax.swing.JButton btnThem;
+    private javax.swing.JComboBox<String> cboCV;
+    private javax.swing.JComboBox<String> cboGt;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -256,12 +346,34 @@ public class NhanVienForm extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTable tbl_NhaCungCap;
+    private javax.swing.JTable tbl_NV;
+    private javax.swing.JTextField txtDiachi;
+    private javax.swing.JTextField txtDienthoai;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtNgaySinh;
     private javax.swing.JTextField txt_maNV;
     private javax.swing.JTextField txt_tenNV;
     // End of variables declaration//GEN-END:variables
+
+    private void loadTB() {
+       try {
+            NhanVienRP nvRP = new NhanVienRP();
+            List<NhanVien> list = nvRP.loadTB();
+            tblModel.setRowCount(0);
+            for (NhanVien nv : list) {
+                tblModel.addRow(new Object[]{
+                    nv.getMaNV(), nv.getMaCV(), nv.getTenNV(), nv.getGioiTinh(), nv.getNgaySinh(), nv.getEmail(),nv.getDienThoai(),nv.getCCCD(),nv.getDiaChi(),nv.getNgayVaoLam()
+                });
+            }
+            tblModel.fireTableDataChanged();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+   public void initTB() {
+        tblModel = new DefaultTableModel();
+        tblModel.setColumnIdentifiers(new String[]{"Mã Nhân Viên", " Tên Nhân Viên", "Giới tính", "Email", "Điện Thoại", "Địa chỉ","Chức vụ"});
+        tbl_NV.setModel(tblModel);
+    } 
 }
