@@ -4,17 +4,50 @@
  */
 package View;
 
+import javax.swing.JOptionPane;
+import entity.KhachHang;
+import Repositories.KhachHangRP;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author pc acer
  */
 public class KhachHangForm extends javax.swing.JPanel {
 
+    DefaultTableModel tblModel;
+
     /**
      * Creates new form KhachHangForm
      */
     public KhachHangForm() {
         initComponents();
+        initTB();
+        loadTB();
+    }
+
+    public void initTB() {
+        tblModel = new DefaultTableModel();
+        tblModel.setColumnIdentifiers(new String[]{"Mã Khách Hàng", "Họ Tên", "Giới tính", "Email", "Điện Thoại", "Địa chỉ"});
+        tblKH.setModel(tblModel);
+    }
+
+    public void loadTB() {
+        try {
+            KhachHangRP khRP = new KhachHangRP();
+            List<KhachHang> list = khRP.loadTB();
+            tblModel.setRowCount(0);
+            for (KhachHang kh : list) {
+                tblModel.addRow(new Object[]{
+                    kh.getMaKH(), kh.getTenKH(), kh.getGioiTinh(), kh.getEmail(), kh.getDienThoai(), kh.getDiaChi()
+                });
+            }
+            tblModel.fireTableDataChanged();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -26,33 +59,33 @@ public class KhachHangForm extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtTim = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        txt_maNV = new javax.swing.JTextField();
-        txt_tenNV = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
+        txtMaKH = new javax.swing.JTextField();
+        txtTenKH = new javax.swing.JTextField();
+        txtDiachi = new javax.swing.JTextField();
+        btnSua = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
+        btnThem = new javax.swing.JButton();
+        txtEmail = new javax.swing.JTextField();
+        txtSdt = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton6 = new javax.swing.JButton();
+        rbNam = new javax.swing.JRadioButton();
+        rbNu = new javax.swing.JRadioButton();
+        btnTim = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbl_NhaCungCap = new javax.swing.JTable();
+        tblKH = new javax.swing.JTable();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setMinimumSize(new java.awt.Dimension(0, 1));
@@ -84,13 +117,13 @@ public class KhachHangForm extends javax.swing.JPanel {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 990, -1));
 
-        jTextField1.setBorder(null);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtTim.setBorder(null);
+        txtTim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtTimActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 120, 231, -1));
+        jPanel1.add(txtTim, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 120, 231, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/icons8-search-24.png"))); // NOI18N
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 120, -1, -1));
@@ -112,92 +145,92 @@ public class KhachHangForm extends javax.swing.JPanel {
 
         jLabel6.setText("Giới Tính");
         jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
+        jPanel3.add(txtMaKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 130, 20));
+        jPanel3.add(txtTenKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 130, 20));
+        jPanel3.add(txtDiachi, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, 130, 20));
 
-        jLabel7.setText("Ngày Sinh");
-        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
-        jPanel3.add(txt_maNV, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 130, 20));
-        jPanel3.add(txt_tenNV, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 130, 20));
-
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        btnSua.setBackground(new java.awt.Color(110, 89, 222));
+        btnSua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSua.setForeground(new java.awt.Color(255, 255, 255));
+        btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                btnSuaActionPerformed(evt);
             }
         });
-        jPanel3.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 130, 20));
-        jPanel3.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 270, 130, 20));
+        jPanel3.add(btnSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, -1, 30));
 
-        jButton3.setBackground(new java.awt.Color(110, 89, 222));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Sửa");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnXoa.setBackground(new java.awt.Color(110, 89, 222));
+        btnXoa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnXoa.setForeground(new java.awt.Color(255, 255, 255));
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnXoaActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, -1, 30));
+        jPanel3.add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 340, -1, 30));
 
-        jButton5.setBackground(new java.awt.Color(110, 89, 222));
-        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("Xóa");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnThem.setBackground(new java.awt.Color(110, 89, 222));
+        btnThem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnThem.setForeground(new java.awt.Color(255, 255, 255));
+        btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnThemActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 340, -1, 30));
-
-        jButton4.setBackground(new java.awt.Color(110, 89, 222));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Thêm");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, -1, 30));
-        jPanel3.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 130, 20));
-        jPanel3.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, 130, 20));
+        jPanel3.add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, -1, 30));
+        jPanel3.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, 130, 20));
+        jPanel3.add(txtSdt, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 130, 20));
 
         jLabel8.setText("Email");
-        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, -1, -1));
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
 
         jLabel9.setText("Số Điện Thoại");
-        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, -1));
 
         jLabel10.setText("Địa Chỉ");
-        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ", "Khác" }));
-        jPanel3.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, -1, -1));
+        buttonGroup1.add(rbNam);
+        rbNam.setText("Nam");
+        jPanel3.add(rbNam, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, -1, -1));
+
+        buttonGroup1.add(rbNu);
+        rbNu.setText("Nữ");
+        jPanel3.add(rbNu, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, -1, -1));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 280, 390));
 
-        jButton6.setBackground(new java.awt.Color(110, 89, 222));
-        jButton6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("Tìm Kiếm");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnTim.setBackground(new java.awt.Color(110, 89, 222));
+        btnTim.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnTim.setForeground(new java.awt.Color(255, 255, 255));
+        btnTim.setText("Tìm Kiếm");
+        btnTim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnTimActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 110, -1, 30));
+        jPanel1.add(btnTim, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 110, -1, 30));
 
-        tbl_NhaCungCap.setModel(new javax.swing.table.DefaultTableModel(
+        tblKH.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Mã KH", "Tên KH", "Giới Tính", "Ngày Sinh", "Email", "Số Điện Thoại", "Địa Chỉ"
+                "Mã KH", "Tên KH", "Giới Tính", "Email", "Số Điện Thoại", "Địa chỉ"
             }
         ));
-        jScrollPane1.setViewportView(tbl_NhaCungCap);
+        tblKH.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblKHMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblKH);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, 700, 370));
 
@@ -219,44 +252,174 @@ public class KhachHangForm extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtTimActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        if (txtMaKH.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Nhập Mã Khách Hàng !!");
+        } else if (txtTenKH.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Nhập Tên Khách Hàng !!");
+        }
+        int chon = JOptionPane.showConfirmDialog(this, "Xác Nhận Sửa?", "Sửa?",
+                JOptionPane.YES_NO_OPTION);
+        if (chon == JOptionPane.YES_OPTION) {
+            try {
+                KhachHang sv = new KhachHang();
+                sv.setMaKH(txtMaKH.getText());
+                sv.setEmail(txtEmail.getText());
+                sv.setDiaChi(txtDiachi.getText());
+                sv.setTenKH(txtTenKH.getText());
+                sv.setDienThoai(txtSdt.getText());
+                sv.setGioiTinh(rbNam.isSelected() ? "Nam" : "Nữ");
+                KhachHangRP dao = new KhachHangRP();
+                if (dao.upDateKh(sv)) {
+                    JOptionPane.showMessageDialog(this, "Thành Công");
+                    loadTB();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Lỗi!!");
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+                }
+            } catch (Exception ex) {
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+            }
+        }
+    }//GEN-LAST:event_btnSuaActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        if (txtMaKH.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Nhập Mã Khách Hàng !!");
+        } else if (txtTenKH.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Nhập Tên Khách Hàng !!");
+        }
+        int chon = JOptionPane.showConfirmDialog(this, "Xóa?", "Xóa?",
+                JOptionPane.YES_NO_OPTION);
+        if (chon == JOptionPane.YES_OPTION) {
+            try {
+                KhachHangRP dao = new KhachHangRP();
+                if (dao.deteleKH(txtMaKH.getText())) {
+                    JOptionPane.showMessageDialog(this, "Thành Công");
+                    loadTB();
+                    txtDiachi.setText("");
+                    txtEmail.setText("");
+                    txtSdt.setText("");
+                    txtMaKH.setText("");
+                    txtTenKH.setText("");
+                    txtEmail.setText("");
+                    buttonGroup1.clearSelection();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Lỗi!!");
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+                }
+            } catch (Exception ex) {
+
+            }
+        }
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        if (txtTenKH.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Nhập Tên Khách Hàng !!");
+        }
+        int chon = JOptionPane.showConfirmDialog(this, "Xác Nhận thêm?", "Thêm?",
+                JOptionPane.YES_NO_OPTION);
+        if (chon == JOptionPane.YES_OPTION) {
+            try {
+                KhachHang sv = new KhachHang();
+                sv.setMaKH(txtMaKH.getText());
+                sv.setEmail(txtEmail.getText());
+                sv.setDiaChi(txtDiachi.getText());
+                sv.setTenKH(txtTenKH.getText());
+                sv.setDienThoai(txtSdt.getText());
+                sv.setGioiTinh(rbNam.isSelected() ? "Nam" : "Nữ");
+                KhachHangRP dao = new KhachHangRP();
+                if (dao.insertKH(sv)) {
+                    JOptionPane.showMessageDialog(this, "Thành Công");
+                    loadTB();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Lỗi!!");
+
+                }
+            } catch (Exception ex) {
+
+            }
+        }
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
+        if (txtTim.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Nhập mã Khách Hàng !!");
+        } else {
+            try {
+                KhachHangRP dao = new KhachHangRP();
+                KhachHang bd = dao.searchMaKH(txtTim.getText());
+                if (bd != null) {
+                    txtDiachi.setText(bd.getDiaChi());
+                    txtEmail.setText(bd.getEmail());
+                    txtTenKH.setText(bd.getTenKH());
+                    txtMaKH.setText(bd.getMaKH());
+                    txtSdt.setText(bd.getDienThoai());
+                    txtEmail.setText(bd.getEmail());
+                    if (bd.getGioiTinh().equals("Nam")) {
+                        rbNam.setSelected(true);
+                    } else if (bd.getGioiTinh().equals("Nữ")) {
+                        rbNu.setSelected(true);
+                    } else {
+                        buttonGroup1.clearSelection();
+                    }
+                    JOptionPane.showMessageDialog(this, "Đã tìm thấy!!!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Mã Khách Hàng không tồn tại!!");
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_btnTimActionPerformed
+
+    private void tblKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKHMouseClicked
+        try {
+            int row = tblKH.getSelectedRow();
+            if (row >= 0) {
+                String id = (String) tblKH.getValueAt(row, 0);
+                KhachHangRP dao = new KhachHangRP();
+                KhachHang sv = dao.searchMaKH(id);
+                if (sv != null) {
+                    txtTenKH.setText(sv.getTenKH());
+                    txtEmail.setText(sv.getEmail());
+                    txtMaKH.setText(sv.getMaKH());
+                    txtSdt.setText(sv.getDienThoai());
+                    txtDiachi.setText(sv.getDiaChi());
+                    if (sv.getGioiTinh().equals("Nam")) {
+                        rbNam.setSelected(true);
+                    } else if (sv.getGioiTinh().equals("Nữ")) {
+                        rbNu.setSelected(true);
+                    } else {
+                        buttonGroup1.clearSelection();
+                    }
+
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_tblKHMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton btnSua;
+    private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnTim;
+    private javax.swing.JButton btnXoa;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -264,13 +427,14 @@ public class KhachHangForm extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTable tbl_NhaCungCap;
-    private javax.swing.JTextField txt_maNV;
-    private javax.swing.JTextField txt_tenNV;
+    private javax.swing.JRadioButton rbNam;
+    private javax.swing.JRadioButton rbNu;
+    private javax.swing.JTable tblKH;
+    private javax.swing.JTextField txtDiachi;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtMaKH;
+    private javax.swing.JTextField txtSdt;
+    private javax.swing.JTextField txtTenKH;
+    private javax.swing.JTextField txtTim;
     // End of variables declaration//GEN-END:variables
 }
