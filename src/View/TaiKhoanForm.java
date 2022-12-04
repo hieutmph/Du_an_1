@@ -4,17 +4,50 @@
  */
 package View;
 
+import Repositories.TaiKhoanRP;
+import entity.TaiKhoan;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author pc acer
  */
 public class TaiKhoanForm extends javax.swing.JPanel {
 
+    DefaultTableModel tblModel;
+
     /**
      * Creates new form TaiKhoanForm
      */
     public TaiKhoanForm() {
         initComponents();
+        initTB();
+        loadTB();
+    }
+
+    public void initTB() {
+        tblModel = new DefaultTableModel();
+        tblModel.setColumnIdentifiers(new String[]{"Mã Tài Khoàn", "Tên Đăng Nhập", "Mật Khẩu", "Mã Nhân Viên"});
+        tblTk.setModel(tblModel);
+    }
+
+    public void loadTB() {
+        try {
+            TaiKhoanRP khRP = new TaiKhoanRP();
+            List<TaiKhoan> list = khRP.loadTB();
+            tblModel.setRowCount(0);
+            for (TaiKhoan kh : list) {
+                tblModel.addRow(new Object[]{
+                    kh.getMaTaiKhoan(), kh.getTenDangNhap(), kh.getMatKhau(), kh.getNhanVien()
+                });
+            }
+            tblModel.fireTableDataChanged();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -31,24 +64,24 @@ public class TaiKhoanForm extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtTim = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txt_maNV = new javax.swing.JTextField();
-        txt_tenNV = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        txtMa = new javax.swing.JTextField();
+        txt_ten = new javax.swing.JTextField();
+        txtMaNV = new javax.swing.JTextField();
+        btnSua = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
+        btnThem = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
-        jButton6 = new javax.swing.JButton();
+        txtMK = new javax.swing.JTextField();
+        btnTim = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbl_NhaCungCap = new javax.swing.JTable();
+        tblTk = new javax.swing.JTable();
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setMinimumSize(new java.awt.Dimension(0, 1));
@@ -80,13 +113,13 @@ public class TaiKhoanForm extends javax.swing.JPanel {
 
         jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 990, -1));
 
-        jTextField1.setBorder(null);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtTim.setBorder(null);
+        txtTim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtTimActionPerformed(evt);
             }
         });
-        jPanel3.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 120, 231, -1));
+        jPanel3.add(txtTim, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 120, 231, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/icons8-search-24.png"))); // NOI18N
         jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 120, -1, -1));
@@ -108,61 +141,61 @@ public class TaiKhoanForm extends javax.swing.JPanel {
 
         jLabel6.setText("Mã Nhân Viên ");
         jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
-        jPanel5.add(txt_maNV, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 130, 20));
-        jPanel5.add(txt_tenNV, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 130, 20));
-        jPanel5.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 130, 20));
+        jPanel5.add(txtMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 130, 20));
+        jPanel5.add(txt_ten, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 130, 20));
+        jPanel5.add(txtMaNV, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 130, 20));
 
-        jButton3.setBackground(new java.awt.Color(110, 89, 222));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Sửa");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnSua.setBackground(new java.awt.Color(110, 89, 222));
+        btnSua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSua.setForeground(new java.awt.Color(255, 255, 255));
+        btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnSuaActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, -1, 30));
+        jPanel5.add(btnSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, -1, 30));
 
-        jButton5.setBackground(new java.awt.Color(110, 89, 222));
-        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("Xóa");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnXoa.setBackground(new java.awt.Color(110, 89, 222));
+        btnXoa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnXoa.setForeground(new java.awt.Color(255, 255, 255));
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnXoaActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, -1, 30));
+        jPanel5.add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, -1, 30));
 
-        jButton4.setBackground(new java.awt.Color(110, 89, 222));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Thêm");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnThem.setBackground(new java.awt.Color(110, 89, 222));
+        btnThem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnThem.setForeground(new java.awt.Color(255, 255, 255));
+        btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnThemActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, 30));
+        jPanel5.add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, 30));
 
         jLabel7.setText("Mật Khẩu");
         jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
-        jPanel5.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 130, 20));
+        jPanel5.add(txtMK, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 130, 20));
 
         jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 280, 330));
 
-        jButton6.setBackground(new java.awt.Color(110, 89, 222));
-        jButton6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("Tìm Kiếm");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnTim.setBackground(new java.awt.Color(110, 89, 222));
+        btnTim.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnTim.setForeground(new java.awt.Color(255, 255, 255));
+        btnTim.setText("Tìm Kiếm");
+        btnTim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnTimActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 110, -1, 30));
+        jPanel3.add(btnTim, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 110, -1, 30));
 
-        tbl_NhaCungCap.setModel(new javax.swing.table.DefaultTableModel(
+        tblTk.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -173,7 +206,12 @@ public class TaiKhoanForm extends javax.swing.JPanel {
                 "Mã Tài Khoản", "Tên Đăng Nhập", "Mật Khẩu", "Mã Nhân Viên"
             }
         ));
-        jScrollPane1.setViewportView(tbl_NhaCungCap);
+        tblTk.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblTkMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblTk);
 
         jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, 690, 370));
 
@@ -237,32 +275,138 @@ public class TaiKhoanForm extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    private void txtTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimActionPerformed
+        
+    }//GEN-LAST:event_txtTimActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        if (txtMa.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Nhập mã Tài Khoản !!");
+        }
+        int chon = JOptionPane.showConfirmDialog(this, "Xác Nhận sửa?", "Sửa?",
+                JOptionPane.YES_NO_OPTION);
+        if (chon == JOptionPane.YES_OPTION) {
+            try {
+                TaiKhoan sv = new TaiKhoan();
+                sv.setMaTaiKhoan(txtMa.getText());
+                sv.setMatKhau(txtMK.getText());
+                sv.setNhanVien(txtMaNV.getText());
+                sv.setTenDangNhap(txt_ten.getText());
+                TaiKhoanRP dao = new TaiKhoanRP();
+                if (dao.update(sv)) {
+                    JOptionPane.showMessageDialog(this, "Thành Công");
+                    loadTB();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Lỗi!!");
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+                }
+            } catch (Exception ex) {
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+            }
+        }
+    }//GEN-LAST:event_btnSuaActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        if (txtMa.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Nhập Mã Tài Khoản !!");
+        }
+        int chon = JOptionPane.showConfirmDialog(this, "Xóa?", "Xóa?",
+                JOptionPane.YES_NO_OPTION);
+        if (chon == JOptionPane.YES_OPTION) {
+            try {
+                TaiKhoanRP dao = new TaiKhoanRP();
+                if (dao.detele(txtMa.getText())) {
+                    JOptionPane.showMessageDialog(this, "Thành Công");
+                    loadTB();
+                    txtMK.setText("");
+                    txtMa.setText("");
+                    txtMaNV.setText("");
+                    txt_ten.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Lỗi!!");
+
+                }
+            } catch (Exception ex) {
+
+            }
+        }
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        if (txtMa.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Nhập mã Tài Khoản !!");
+        }
+        int chon = JOptionPane.showConfirmDialog(this, "Xác Nhận thêm?", "Thêm?",
+                JOptionPane.YES_NO_OPTION);
+        if (chon == JOptionPane.YES_OPTION) {
+            try {
+                TaiKhoan sv = new TaiKhoan();
+                sv.setMaTaiKhoan(txtMa.getText());
+                sv.setMatKhau(txtMK.getText());
+                sv.setNhanVien(txtMaNV.getText());
+                sv.setTenDangNhap(txt_ten.getText());
+                TaiKhoanRP dao = new TaiKhoanRP();
+                if (dao.insert(sv)) {
+                    JOptionPane.showMessageDialog(this, "Thành Công");
+                    loadTB();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Lỗi!!");
+
+                }
+            } catch (Exception ex) {
+
+            }
+        }
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
+        if (txtTim.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Nhập mã Tài Khoản !!");
+        } else {
+            try {
+                TaiKhoanRP dao = new TaiKhoanRP();
+                TaiKhoan bd = dao.search(txtTim.getText());
+                if (bd != null) {
+                    txtMa.setText(bd.getMaTaiKhoan());
+                    txtMK.setText(bd.getMatKhau());
+                    txt_ten.setText(bd.getTenDangNhap());
+                    txtMaNV.setText(bd.getMatKhau());
+                    JOptionPane.showMessageDialog(this, "Đã tìm thấy!!!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Mã Tài Khoản không tồn tại!!");
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_btnTimActionPerformed
+
+    private void tblTkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTkMouseClicked
+        try {
+            int row = tblTk.getSelectedRow();
+            if (row >= 0) {
+                String id = (String) tblTk.getValueAt(row, 0);
+                TaiKhoanRP dao = new TaiKhoanRP();
+                TaiKhoan sv = dao.search(id);
+                if (sv != null) {
+                    txtMK.setText(sv.getMatKhau());
+                    txtMa.setText(sv.getMaTaiKhoan());
+                    txtMaNV.setText(sv.getNhanVien());
+                    txt_ten.setText(sv.getTenDangNhap());
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_tblTkMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton btnSua;
+    private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnTim;
+    private javax.swing.JButton btnXoa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -276,11 +420,11 @@ public class TaiKhoanForm extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTable tbl_NhaCungCap;
-    private javax.swing.JTextField txt_maNV;
-    private javax.swing.JTextField txt_tenNV;
+    private javax.swing.JTable tblTk;
+    private javax.swing.JTextField txtMK;
+    private javax.swing.JTextField txtMa;
+    private javax.swing.JTextField txtMaNV;
+    private javax.swing.JTextField txtTim;
+    private javax.swing.JTextField txt_ten;
     // End of variables declaration//GEN-END:variables
 }
