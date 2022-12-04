@@ -105,3 +105,10 @@ DONGIA NVARCHAR(25)
 
 )
 GO
+CREATE TABLE NhaCungCap(
+MaNhaCC CHAR(7) PRIMARY KEY,
+TenNhaCC NVarChar(25),
+soDT Char(10),
+Email NVarChar(25),
+DiaChi NvarChar(20)
+)
